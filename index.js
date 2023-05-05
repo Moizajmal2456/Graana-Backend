@@ -1,4 +1,5 @@
 import express, { json } from "express";
+import mongoose from "mongoose";
 const app = express();
 
  const propertiesList = [
@@ -54,6 +55,16 @@ const app = express();
     },
   ];
 
+mongoose.connect("mongodb://0.0.0.0:27017/Graana-Backend");
+
+mongoose.connection.on("connected" , () => {
+  console.log("Connection Build Successfully");
+})
+
+mongoose.connection.on("error" , () => {
+  console.log("Something went wrong");
+})
+
 app.get("/properties" ,  (req, res) => {
 res.send(JSON.stringify(propertiesList))
 })
@@ -67,7 +78,7 @@ app.get("/properties/:id" , (req , res) => {
    res.status(200 , "ok").send(JSON.stringify(property));
 })
 
-app.delete("properties/:id" , (req,res) => {
+app.delete("/properties/:id" , (req,res) => {
   const ID = Number(req.params.id);
   const property = propertiesList.find((p) => p.id === ID);
   const index = propertiesList.indexOf(property);
