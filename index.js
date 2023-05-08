@@ -1,8 +1,12 @@
 import express, { json } from "express";
 import mongoose from "mongoose";
+import * as dotenv from "dotenv";
+import cors from "cors";
 import { AuthRoutes } from "./Routes/index.js";
 const app = express();
-
+dotenv.config();
+app.use(express.json()); // to parse body in requests
+app.use(cors());
 
 mongoose.connect("mongodb://0.0.0.0:27017/Graana-Backend");
 
@@ -38,3 +42,4 @@ res.send(JSON.stringify(propertiesList))
 app.use("/", AuthRoutes);
 
 app.listen(4000);
+console.log("Server listening on port: 4000");
