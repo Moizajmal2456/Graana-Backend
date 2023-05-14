@@ -31,23 +31,21 @@ const inValidPassword = await bcrypt.compare(password , user.password);
 if(!inValidPassword){
     return res.status(401).send("Invalid Email/Password");
 }
-// const token = jwt.sign(
-//     {
-//        email,
-//     },
-//     {
-//       secretKey: "Hellohybyebye",   
-//     },
-//     {
-//        expiresIn: "1h",
-//     },
-// );
+const token = jwt.sign(
+    {
+       email,
+    },
+      process.env.JWT_SECRET, 
+    {
+       expiresIn: "1h",
+    },
+);
 
-// user.token = token;
+user.token = token;
 
 user.save();
 
-// const { password: _password, ...userData } = user.toJSON();
+const { password: _password, ...userData } = user.toJSON();
 
  res.send(user);
 };
