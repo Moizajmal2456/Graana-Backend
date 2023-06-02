@@ -19,7 +19,7 @@ res.send(userData);
 };
 
 export const LoginUser = async ( req , res) => {
-const { email , password }= req.body;
+const { email , password } = req.body;
 
 const user = await UsersModel.findOne({email});
 
