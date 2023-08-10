@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { UsersModel } from "../../Model/UsersModel.js";
 
-export const SignUp = async (req, res) => {
+export const SignUp = async (req , res) => {
 const _user = req.body;
 
 const EncryptedPassword = await bcrypt.hash(_user.password , 10);
@@ -15,7 +15,7 @@ user.save();
 
 const {password: _password , ...userData} = user.toJSON();
 
-res.send(userData);
+res.send(user);
 };
 
 export const LoginUser = async ( req , res) => {
